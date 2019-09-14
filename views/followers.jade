@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= subject
+  h2 = 男型：#{maleCount}  女性：#{femaleCount} 无性别：#{nomaleCount}
+  ul
+    each follower in followers
+        li= 昵称：#{follower}  
