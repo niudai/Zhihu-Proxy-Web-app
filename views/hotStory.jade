@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  div
+    each question in questions
+        h2= question.target.title
+        p= question.target.excerpt
+
