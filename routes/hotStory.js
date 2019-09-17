@@ -1,14 +1,28 @@
 var express = require('express');
 var router = express.Router();
 var httpClient = require('request');
-var HtmlParser = require('node-html-parser');
+const storyTypes = [
+    { storyType: 'sport', ch: '运动'},
+    { storyType: 'science', ch: '科学'},
+    { storyType: 'fashion', ch: '时尚'},
+    { storyType: 'film', ch: '影视'},
+    { storyType: 'digital', ch: '数码'},
+    { storyType: null, ch: '热榜'}
+]
 let storyType = { storyType: 'sport', ch: '运动'};
 
-const hotStoryAPI = `https://www.zhihu.com/api/v3/feed/topstory/hot-lists/${storyType.storyType}?desktop=true`
+let hotStoryAPI = `https://www.zhihu.com/api/v3/feed/topstory/hot-lists/${storyType.storyType}?desktop=true`
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/:storyType', function(req, res, next) {
+  storyTypes.forEach(type => {
+      console.log(type.storyType + '  |||  ' + req.params.storyType)
+      if (type.storyType === req.params.storyType) {
+          storyType = type;
+      }
+  })
+  hotStoryAPI = `https://www.zhihu.com/api/v3/feed/topstory/hot-lists/${storyType.storyType}?desktop=true`
   httpClient(hotStoryAPI, {json: true }, (err, _res, body) => {
     console.log(hotStoryAPI);
     console.log(body);
