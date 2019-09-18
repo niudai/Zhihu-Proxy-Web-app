@@ -29,7 +29,8 @@ router.get('/:storyType', function(req, res, next) {
     let questions = body.data
     let title = storyType.ch;
     console.log(questions);
-    res.render('hotStory', { title,  questions})
+    res.send(questions);
+    // res.render('hotStory', { title,  questions})
   });
 });
 
