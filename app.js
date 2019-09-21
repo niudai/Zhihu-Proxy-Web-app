@@ -9,7 +9,7 @@ var followerRouter = require('./routes/followers');
 var followersCounter = require('./routes/followerCounter');
 var answerRouter = require('./routes/question');
 var hotStoryRouter = require('./routes/hotStory');
-
+var picRouter = require('./routes/picture');
 // followersCounter();
 
 var app = express();
@@ -29,6 +29,7 @@ app.use('/users', userRouter);
 app.use('/api/follower', followerRouter);
 app.use('/api/question', answerRouter);
 app.use('/api/topStory', hotStoryRouter);
+app.use('/pic', picRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
