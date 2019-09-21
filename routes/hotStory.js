@@ -7,7 +7,7 @@ const storyTypes = [
     { storyType: 'fashion', ch: '时尚'},
     { storyType: 'film', ch: '影视'},
     { storyType: 'digital', ch: '数码'},
-    { storyType: null, ch: '热榜'}
+    { storyType: 'total', ch: '全站'}
 ]
 let storyType = { storyType: 'sport', ch: '运动'};
 
@@ -25,10 +25,9 @@ router.get('/:storyType', function(req, res, next) {
   hotStoryAPI = `https://www.zhihu.com/api/v3/feed/topstory/hot-lists/${storyType.storyType}?desktop=true`
   httpClient(hotStoryAPI, {json: true }, (err, _res, body) => {
     console.log(hotStoryAPI);
-    console.log(body);
+    // console.log(body);
     let questions = body.data
-    let title = storyType.ch;
-    console.log(questions);
+    // console.log(questions);
     res.send(questions);
     // res.render('hotStory', { title,  questions})
   });

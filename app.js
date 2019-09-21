@@ -7,7 +7,7 @@ var indexRouter = require('./routes/index');
 var userRouter = require('./routes/users');
 var followerRouter = require('./routes/followers');
 var followersCounter = require('./routes/followerCounter');
-var answerRouter = require('./routes/answser');
+var answerRouter = require('./routes/question');
 var hotStoryRouter = require('./routes/hotStory');
 
 // followersCounter();
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/api/follower', followerRouter);
-app.use('/api/answer', answerRouter);
+app.use('/api/question', answerRouter);
 app.use('/api/topStory', hotStoryRouter);
 
 // catch 404 and forward to error handler
