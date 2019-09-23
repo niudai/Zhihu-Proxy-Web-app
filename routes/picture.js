@@ -5,17 +5,16 @@ var fs = require('fs');
 
 const IMAGE_DIRCTORY = 'public/images'
 
-
 /* GET home page. */
-router.get(':imageName', function (req, res, next) {
-  let imageName = req.params['imageName'];
-  let answerAPI = `https://pic3.zhimg.com/80/v2-d42f78b022ce1264cb45f3ce66835f74_hd.jpg`
+router.get('/:imageName', function (req, res, next) {
+  let imageName = req.params.imageName;
+  let answerAPI = `https://pic3.zhimg.com/80/${imageName}.jpg`
   httpClient(answerAPI, { json: false }, (err, _res, body) => {
-    res.set('Content-Type', 'image/jpeg');
+    // res.set('Content-Type', 'image/jpeg');
 
-  }).pipe(fs.createWriteStream("test.jpg", { flags: 'a' });
+  }).pipe(fs.createWriteStream(`${imageName}.jpg`, { flags: 'a' }))
+  res.send('image stored');
 })
-
 
 
 
