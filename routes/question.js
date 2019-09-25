@@ -17,16 +17,28 @@ router.get('/:questionId', function (req, res, next) {
     imgAttrs.forEach(
       attr => {
         attr.forEach(img => {
-          img.rawAttributes.src = img.rawAttributes['data-actualsrc'];
-          img.rawAttrs = `src = \" ${img.rawAttributes['data-actualsrc']} \"`;
+          let src = imageUrlConverter(img.rawAttributes['data-actualsrc']);
+          img.rawAttributes.src = src;
+          img.rawAttributes.style = 'style = \"width: 90%\"';
+          img.rawAttrs = `src = \"${src}\" style = \"width: 90%\"`;
           console.log(img.rawAttributes);
           console.log(img.rawAttr);
         }
         );
     });
-    res.send(answerHtmlRoots.toString());
+    body.data.forEach((answer, index) => answer.content = answerHtmlRoots[index].toString());
+    res.send(body);
   });
 })
+
+imageUrlConverter = s => {
+  if (s) {
+    subString = s.substring(s.lastIndexOf('/') + 1, s.length);
+    console.log(subString);
+    finalString = 'pic/' + subString;
+    return finalString;
+  } else return '';
+}
 
 
 
