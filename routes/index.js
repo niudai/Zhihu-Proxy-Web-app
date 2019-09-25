@@ -15,7 +15,7 @@ const followerAPI = `https://www.zhihu.com/api/v4/members/${id}/followers?offset
 router.get('/', function(req, res, next) {
   httpClient(liveAPI, { json: true }, (err, _res, body) => {
     console.log(body);
-    res.render('index', { subject: body.subject,  description_html: body.description_html})
+    res.sendFile('index', { subject: body.subject,  description_html: body.description_html})
     console.log(body.subject)
   })
 });

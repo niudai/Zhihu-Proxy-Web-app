@@ -24,12 +24,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/api/follower', followerRouter);
 app.use('/api/question', answerRouter);
 app.use('/api/topStory', hotStoryRouter);
 app.use('/pic', picRouter);
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
