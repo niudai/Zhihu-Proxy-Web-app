@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var httpClient = require('request');
 var HtmlParser = require('node-html-parser');
+var imageUrlConverter = require('../util/imageUrlConverter');
 
 let offset = 0;
 let includeContent = 'data[*].is_normal,content;';
@@ -14,6 +15,8 @@ router.get('/:questionId', function (req, res, next) {
     console.log(answerAPI);
     let answerHtmlRoots = body.data.map(answer => HtmlParser.parse(answer.content));
     let imgAttrs = answerHtmlRoots.filter(root => root.querySelector('img')).map(root => root.querySelectorAll('img'));
+    
+    // convert img src in answer inner html
     imgAttrs.forEach(
       attr => {
         attr.forEach(img => {
@@ -26,19 +29,20 @@ router.get('/:questionId', function (req, res, next) {
         }
         );
     });
+
+    // convert img src for avatar
+    body.data.forEach( answer => {
+      avatar_url = answer.author.avatar_url;
+      avatar_url = imageUrlConverter(avatar_url);
+    })
+
+    // convert 
     body.data.forEach((answer, index) => answer.content = answerHtmlRoots[index].toString());
     res.send(body);
   });
 })
 
-imageUrlConverter = s => {
-  if (s) {
-    subString = s.substring(s.lastIndexOf('/') + 1, s.length);
-    console.log(subString);
-    finalString = 'pic/' + subString;
-    return finalString;
-  } else return '';
-}
+
 
 
 
