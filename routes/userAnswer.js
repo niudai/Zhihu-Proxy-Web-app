@@ -5,12 +5,13 @@ var HtmlParser = require('node-html-parser');
 var imageUrlConverter = require('../util/imageUrlConverter');
 
 let offset = 0;
-let includeContent = 'data[*].is_normal,content;';
+let includeContent = 'data[*].is_normal,content,created_time,updated_time,excerpt';
 
 /* GET home page. */
-router.get('/:questionId', function (req, res, next) {
-  let questionId = req.params.questionId;
-  let answerAPI = `https://www.zhihu.com/api/v4/questions/${questionId}/answers?include=${includeContent}?offset=${offset}`
+router.get('/answer/:urlToken', function (req, res, next) {
+  let urlToken = req.params.urlToken;
+  let answerAPI = `https://www.zhihu.com/api/v4/members/${urlToken}/answers?include=${includeContent}&offset=${offset}`
+  console.log('Works!!');
   httpClient(answerAPI, { json: true }, (err, _res, body) => {
     console.log(answerAPI);
     let answerHtmlRoots = body.data.map(answer => HtmlParser.parse(answer.content));

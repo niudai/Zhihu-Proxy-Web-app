@@ -10,6 +10,7 @@ var followersCounter = require('./routes/followerCounter');
 var answerRouter = require('./routes/question');
 var hotStoryRouter = require('./routes/hotStory');
 var picRouter = require('./routes/picture');
+var answerRouter = require('./routes/userAnswer')
 // followersCounter();
 
 var app = express();
@@ -28,6 +29,7 @@ app.use('/users', userRouter);
 app.use('/api/follower', followerRouter);
 app.use('/api/question', answerRouter);
 app.use('/api/topStory', hotStoryRouter);
+app.use('/api/user', answerRouter);
 app.use('/pic', picRouter);
 
 app.get('/*', (req, res) => {
