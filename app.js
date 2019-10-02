@@ -25,11 +25,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/users', userRouter);
 app.use('/api/follower', followerRouter);
 app.use('/api/question', answerRouter);
 app.use('/api/topStory', hotStoryRouter);
-app.use('/api/user', answerRouter);
+app.use('/api/user', userRouter);
 app.use('/pic', picRouter);
 
 app.get('/*', (req, res) => {
